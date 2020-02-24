@@ -1,5 +1,6 @@
 import React, { Component , Fragment }from 'react';
 import './style.css'
+import TodoItem from './TodoItem'
 
 class TodoList extends Component {
 
@@ -27,31 +28,33 @@ class TodoList extends Component {
                    {
                        this.state.list.map((item, index) => {
                           return (
-                            <li 
-                                key={index} 
-                                onClick={this.handleItemDelete.bind(this, index)}
-                                dangerouslySetInnerHTML={{__html: item}}
-                            >
-                            </li>)
+                              <TodoItem 
+                                index={index} 
+                                content={item}
+                                deleteItem={this.handleItemDelete.bind(this)}
+                               />
+                            )
                        })
                    }
                 </ul>
             </Fragment>
         );
     }
+
     handleInputChange = (e) => {
         this.setState({
             inputValue: e.target.value
         })
     }
+
     handleBthClick = () => {
         this.setState({
             list: [...this.state.list, this.state.inputValue],
             inputValue: ''
         })
     }
-    handleItemDelete(index) {
 
+    handleItemDelete(index) {
         // immutable
         // state不允许我们做任何的改变
         const list = [...this.state.list];
