@@ -12,4 +12,8 @@
     * 类型检测和默认值
 
 * props state 与 render 函数
+    * 当组件的state或者props发生改变时，render函数就会重新执行
+    * 当父组件的render函数被运行时，它的子组件的render都将重新运行一次
+
+* 虚拟DOM
 
