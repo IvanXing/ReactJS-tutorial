@@ -1,6 +1,6 @@
 import React, { Component , Fragment }from 'react';
-import './style.css'
 import TodoItem from './TodoItem'
+import './style.css'
 
 class TodoList extends Component {
 
@@ -10,6 +10,9 @@ class TodoList extends Component {
             inputValue: '',
             list: []
         }
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleBthClick = this.handleBthClick.bind(this);
+        this.handleItemDelete = this.handleItemDelete.bind(this);
     }
     render(){
         return (
@@ -25,43 +28,65 @@ class TodoList extends Component {
                     <button onClick={this.handleBthClick}>提交</button>
                 </div>
                 <ul>
-                   {
-                       this.state.list.map((item, index) => {
-                          return (
-                              <TodoItem 
-                                index={index} 
-                                content={item}
-                                deleteItem={this.handleItemDelete.bind(this)}
-                               />
-                            )
-                       })
-                   }
+                   {this.getTodoItem()}
                 </ul>
             </Fragment>
         );
     }
 
-    handleInputChange = (e) => {
-        this.setState({
-            inputValue: e.target.value
-        })
+    getTodoItem() {
+      return  this.state.list.map((item, index) => {
+        return (
+            <TodoItem 
+              key={index}
+              index={index} 
+              content={item}
+              deleteItem={this.handleItemDelete}
+             />
+          )
+     })
     }
 
-    handleBthClick = () => {
-        this.setState({
-            list: [...this.state.list, this.state.inputValue],
-            inputValue: ''
-        })
+    handleInputChange(e) {
+      const value = e.target.value
+      this.setState(() => ({
+        inputValue: value
+      }))
+        // this.setState(() => {
+        //   return {
+        //     inputValue: e.target.value
+        //   }
+        // })
+        // this.setState({
+        //     inputValue: e.target.value
+        // })
+    }
+
+    handleBthClick() {
+      // prevState 参数是修改之前的数据 this.state 避免改变state
+        this.setState((prevState) => ({
+          list: [...prevState.list, prevState.inputValue],
+          inputValue: ''
+        }))
+        // this.setState({
+        //     list: [...this.state.list, this.state.inputValue],
+        //     inputValue: ''
+        // })
     }
 
     handleItemDelete(index) {
-        // immutable
-        // state不允许我们做任何的改变
-        const list = [...this.state.list];
-        list.splice(index, 1);
-        this.setState({
-            list: list
+        
+        this.setState((prevState) => {
+          const list = [...prevState.list];
+          list.splice(index, 1);
+          return { list }   // list:list
         })
+
+        // const list = [...this.state.list];
+        // list.splice(index, 1);
+        // this.setState({
+        //     list
+        // })
 
     }
  
