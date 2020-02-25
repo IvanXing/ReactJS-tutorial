@@ -8,7 +8,19 @@ class TodoItem extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
+    // nextProps nextState 目标值
+    shouldComponentUpdate = (nextProps, nextState) => {
+        if(nextProps.content !== this.props.content) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     render() {
+        // 父组件input输入时，会render 父组件render时，子组件也会render
+        // 但是没有必要
+        console.log('child render')
         const { content , test } = this.props;
         return (
             <div onClick={this.handleClick}>
