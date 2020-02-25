@@ -25,12 +25,14 @@ class TodoList extends Component {
                         className='input'
                         value={this.state.inputValue}
                         onChange={this.handleInputChange}
+                        ref={(inputDom) => {this.inputDom = inputDom}}
                     />
                     <button onClick={this.handleBthClick}>提交</button>
                 </div>
-                <ul>
+                <ul ref={(ul) => {this.ul = ul}}>
                    {this.getTodoItem()}
                 </ul>
+                {/* props发生改变时，子组件render */}
                 <Test content={this.state.inputValue}/>
             </Fragment>
         );
@@ -50,7 +52,12 @@ class TodoList extends Component {
     }
 
     handleInputChange(e) {
-      const value = e.target.value
+      // e.target是该input的dom
+      // const value = e.target.value;
+
+      // 使用ref可以直接拿到input的dom
+      const value = this.inputDom.value;
+
       this.setState(() => ({
         inputValue: value
       }))
@@ -69,7 +76,9 @@ class TodoList extends Component {
         this.setState((prevState) => ({
           list: [...prevState.list, prevState.inputValue],
           inputValue: ''
-        }))
+        }), () => {
+          console.log('setState第二个参数回调', this.ul.querySelectorAll('div').length)
+        })
         // this.setState({
         //     list: [...this.state.list, this.state.inputValue],
         //     inputValue: ''
