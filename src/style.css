@@ -1,3 +1,49 @@
 .input{
     border: 1px solid #7EDC58
 }
+
+.show {
+    opacity: 1;
+    transition: all 1s ease-in;
+}
+
+.hide {
+    opacity: 0;
+    transition: all 1s ease-in;
+}
+
+/* forwards 此参数可以保存最后一帧的样式 */
+.hide-animation {
+    animation: hide-item 2s ease-in forwards;
+}
+
+/* 100%的状态不会被保存 */
+@keyframes hide-item {
+    0% {
+        opacity: 1;
+        color: red;
+    }
+    50% {
+        opacity: 0.5;
+        color: green;
+    }
+    100% {
+        opacity: 0;
+        color: blue;
+    }
+}
+
+.my-node-enter {
+    opacity: 0;
+  }
+  .my-node-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
+  }
+  .my-node-exit {
+    opacity: 1;
+  }
+  .my-node-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
+  }

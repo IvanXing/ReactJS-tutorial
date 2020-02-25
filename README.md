@@ -78,3 +78,9 @@
     * 父组件render时，子组件也会render
     * render必须存在，不内置在component中
     * ajax最好放在componentDidMount中，render中会死循环，componentWillMount会和rn，同构有冲突，constructor中理论上也可
+
+### 7. React中的CSS
+
+* 使用CSS3
+* 使用react-transition-group实现复杂动画
+    * https://github.com/reactjs/react-transition-group
