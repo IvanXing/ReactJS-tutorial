@@ -75,4 +75,3 @@
     * 父组件render时，子组件也会render
     * render必须存在，不内置在component中
     * ajax最好放在componentDidMount中，render中会死循环，componentWillMount会和rn，同构有冲突，constructor中理论上也可
-    
